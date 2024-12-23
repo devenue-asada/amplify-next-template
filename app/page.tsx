@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import "./../app/app.css";
@@ -15,6 +16,8 @@ const client = generateClient<Schema>();
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
+
+  const { signOut } = useAuthenticator();
 
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id })
@@ -52,6 +55,7 @@ export default function App() {
           Review next steps of this tutorial.
         </a>
       </div>
+      <button onClick={signOut}>Sign out</button>
     </main>
   );
 }
