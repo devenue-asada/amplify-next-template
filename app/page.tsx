@@ -17,7 +17,7 @@ export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
 
-  const { signOut } = useAuthenticator();
+  const { user, signOut } = useAuthenticator();
 
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id })
@@ -55,6 +55,7 @@ export default function App() {
           Review next steps of this tutorial.
         </a>
       </div>
+      <h1>{user?.signInDetails?.loginId}'s todos</h1>
       <button onClick={signOut}>Sign out</button>
     </main>
   );
